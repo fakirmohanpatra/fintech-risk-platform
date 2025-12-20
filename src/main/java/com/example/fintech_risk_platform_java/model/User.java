@@ -16,8 +16,8 @@ public class User {
     private String username;
 
     @Column(nullable = false)
-    private String password;
+    private String password; // BCrypt hash
 
     @Column(nullable = false)
-    private String role; // "ADMIN", "USER", "RISK_ANALYST"
+    private String role; // ROLE_USER, ROLE_ADMIN, ROLE_RISK_ANALYST
 }
