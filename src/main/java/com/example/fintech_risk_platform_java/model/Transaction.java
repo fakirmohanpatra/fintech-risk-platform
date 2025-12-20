@@ -1,7 +1,10 @@
 package com.example.fintech_risk_platform_java.model;
 
+
 import java.math.BigDecimal;
 import java.time.Instant;
+
+import com.example.fintech_risk_platform_java.model.enums.TransactionStatus;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -18,7 +21,9 @@ public class Transaction {
 
     private String type; // "DEBIT" or "CREDIT"
     private BigDecimal amount;
-    private String status; // "SUCCESS", "FAILED"
+
+    @Enumerated(EnumType.STRING)
+    private TransactionStatus status;
  
     private Instant createdAt = Instant.now();
 
