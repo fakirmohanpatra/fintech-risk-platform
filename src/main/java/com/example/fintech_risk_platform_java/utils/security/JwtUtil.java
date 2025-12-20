@@ -1,29 +1,38 @@
 package com.example.fintech_risk_platform_java.utils.security;
 
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 
 import java.security.Key;
 import java.util.Date;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
+@Component
 public class JwtUtil {
 
-    private static final Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
-    private static final long EXPIRATION = 1000 * 60 * 60; // 1 hour
+    @Value("${jwt.secret}")
+    private String secret;
 
-    public static String generateToken(String username) {
+    @Value("${jwt.expiration-ms}")
+    private long expiration;
+
+    private Key getKey() {
+        return Keys.hmacShaKeyFor(secret.getBytes());
+    }
+    public String generateToken(String username) {
         return Jwts.builder()
                 .setSubject(username)
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION))
-                .signWith(key)
+                .setExpiration(new Date(System.currentTimeMillis() + expiration))
+                .signWith(getKey())
                 .compact();
     }
 
-    public static String extractUsername(String token) {
+    public String extractUsername(String token) {
         return Jwts.parserBuilder()
-                .setSigningKey(key)
+                .setSigningKey(getKey())
                 .build()
                 .parseClaimsJws(token)
                 .getBody()

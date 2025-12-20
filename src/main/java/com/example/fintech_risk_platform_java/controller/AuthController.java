@@ -16,13 +16,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/api/auth")
 public class AuthController {
     
     private final AuthenticationManager authenticationManager;
+    private final JwtUtil jwtUtil;
 
-    public AuthController(AuthenticationManager authenticationManager) {
+    public AuthController(AuthenticationManager authenticationManager, JwtUtil jwtUtil) {
         this.authenticationManager = authenticationManager;
+        this.jwtUtil = jwtUtil;
     }
 
     @PostMapping("/login")
@@ -36,7 +38,7 @@ public class AuthController {
                 )
             );
 
-        String token = JwtUtil.generateToken(authentication.getName());
+        String token = jwtUtil.generateToken(authentication.getName());
 
         return Map.of("token", token);
     }
