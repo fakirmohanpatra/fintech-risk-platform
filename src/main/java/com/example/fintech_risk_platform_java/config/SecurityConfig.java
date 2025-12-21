@@ -25,7 +25,20 @@ public class SecurityConfig {
         http
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
+
+                // Public
                 .requestMatchers("/api/auth/**").permitAll()
+
+                // Admin-only APIs
+                .requestMatchers("/api/admin/**").hasRole("ADMIN")
+
+                // Risk team APIs
+                .requestMatchers("/api/risk/**").hasAnyRole("RISK_ANALYST", "ADMIN")
+
+                // Transaction APIs
+                .requestMatchers("/api/transactions/**").hasAnyRole("USER", "RISK_ANALYST", "ADMIN")
+
+                // All other requests
                 .anyRequest().authenticated()
             )
             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)

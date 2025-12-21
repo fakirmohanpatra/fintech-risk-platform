@@ -28,5 +28,5 @@ public class TransactionEventEntity {
     private BigDecimal amount;
     private String performedBy;
     private TransactionStatus status;
-    private Instant timesteamp;
+    private Instant timestamp;
 }

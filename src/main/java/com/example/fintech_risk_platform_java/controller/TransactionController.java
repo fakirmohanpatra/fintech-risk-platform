@@ -3,6 +3,7 @@ package com.example.fintech_risk_platform_java.controller;
 import java.math.BigDecimal;
 import java.util.Map;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,6 +23,7 @@ public class TransactionController {
         this.transactionService = transactionService;
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @PostMapping("/debit")
     public Transaction debit(@RequestBody Map<String, String> request,
         Authentication auth
@@ -32,6 +34,7 @@ public class TransactionController {
             auth.getName());
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @PostMapping("/credit")
     public Transaction credit(@RequestBody Map<String, String> request,
         Authentication auth

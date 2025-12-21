@@ -30,6 +30,6 @@ public class TransactionEvent {
     public Long getTransactionId() { return transactionId; }
     public String getType() { return type; }
     public BigDecimal getAmount() { return amount; }
-    public TransactionStatus getstStatus() { return status; }
+    public TransactionStatus getStatus() { return status; }
     public Instant getTimestamp() { return timestamp; }
 }
