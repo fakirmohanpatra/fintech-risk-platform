@@ -10,6 +10,8 @@ import com.example.fintech_risk_platform_java.controller.dto.CreateUserRequest;
 import com.example.fintech_risk_platform_java.model.User;
 import com.example.fintech_risk_platform_java.service.AdminService;
 
+import io.swagger.v3.oas.annotations.Operation;
+
 @RestController
 @RequestMapping("/api/admin")
 public class AdminController {
@@ -21,6 +23,7 @@ public class AdminController {
         this.adminService = adminService;
     }
     
+    @Operation(summary = "Create a new user (Admin only)")
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/users")
     public User createUser(@RequestBody CreateUserRequest request) {

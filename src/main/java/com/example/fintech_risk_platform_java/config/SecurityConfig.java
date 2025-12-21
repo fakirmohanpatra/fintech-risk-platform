@@ -26,8 +26,13 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
 
-                // Public
-                .requestMatchers("/api/auth/**").permitAll()
+                // Public APIs, such as authentication and documentation
+                .requestMatchers(
+                    "/api/auth/**",
+                    "/v3/api-docs/**",
+                    "/swagger-ui/**",
+                    "/swagger-ui.html"
+                ).permitAll()
 
                 // Admin-only APIs
                 .requestMatchers("/api/admin/**").hasRole("ADMIN")
