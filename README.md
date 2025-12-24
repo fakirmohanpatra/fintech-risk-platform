@@ -264,4 +264,4 @@ For questions or support, please open an issue in the repository.
 
 ---
 
-**Note**: This is a development version. For production deployment, ensure all security configurations, secrets, and database credentials are properly secured and not committed to version control.
+**Note**: This is a development version. For production deployment, ensure all security configurations, secrets, and database credentials are properly secured and not committed to version control. 
